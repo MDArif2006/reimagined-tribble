@@ -1,35 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Audio Player</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play Audio</title>
 </head>
 <body>
-    <audio id="audioPlayer" controls>
-        Your browser does not support the audio element.
-    </audio>
+    <audio id="audioPlayer" controls></audio>
 
     <script>
-        // Function to get URL parameter
-        function getParameterByName(name, url) {
-            if (!url) url = window.location.href;
-            name = name.replace(/[\[\]]/g, '\\$&');
-            let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-                results = regex.exec(url);
-            if (!results) return null;
-            if (!results[2]) return '';
-            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        // Function to get the value of a query parameter by name
+        function getQueryParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
         }
 
-        // Get 'aurl' parameter
-        let audioUrl = getParameterByName('aurl');
+        // Get the "thisisytid" parameter from the URL
+        const ytId = getQueryParameter('thisisytid');
+        console.log('YouTube ID:', ytId); // For debugging
 
-        // Set the audio source and play
-        if (audioUrl) {
-            let audioPlayer = document.getElementById('audioPlayer');
-            audioPlayer.src = audioUrl;
-            audioPlayer.load();
-            audioPlayer.play();
-        }
+        // Construct the audio URL
+        const audioUrl = `https://example.com/path/to/audio/${ytId}.mp3`; // Update the base URL accordingly
+
+        // Get the audio element
+        const audioPlayer = document.getElementById('audioPlayer');
+
+        // Set the audio source and play the audio
+        audioPlayer.src = audioUrl;
+        audioPlayer.play();
     </script>
 </body>
 </html>
